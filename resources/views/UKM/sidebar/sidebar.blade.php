@@ -2,7 +2,7 @@
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
 
-            <li class="nav-item {{ Route::currentRouteName()=='MyUKM' ? 'active' : '' }}" data-item="dashboard">
+            <li class="nav-item {{ request()->is('MyUKM') ? 'active' : '' }}" data-item="dashboard">
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-File-Clipboard-File--Text"></i>
                     <span class="nav-text">Layanan</span>
@@ -10,7 +10,7 @@
                 <div class="triangle"></div>
             </li>
 
-            <li class="nav-item " data-item="">
+            <li class="nav-item {{ request()->is('MyUKM/Calendar') ? 'active' : '' }}" data-item="">
                 <a class="nav-item-hold" href="{{ route('Calendar') }}">
                     <i class="nav-icon i-Calendar-4"></i>
                     <span class="nav-text">Kalender</span>
@@ -28,7 +28,7 @@
             </li>
 
 
-            <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="sessions">
+            <li class="nav-item {{ request()->is('profileUKM/*') ? 'active' : '' }}" data-item="sessions">
                 <a class="nav-item-hold" href="/test.html">
                     <i class="nav-icon i-Administrator"></i>
                     <span class="nav-text">Profile</span>

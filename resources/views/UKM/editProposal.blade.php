@@ -40,7 +40,7 @@
                     <h4 class="">Perhatian!! Proposal yang di-upload akan mengganti file proposal lama.
                     </h4>
                 </div>
-                <form action="/dokumen/{{ $proposal->name }}/edit/proposal" method="POST" class="dropzone"
+                <form action="/dokumen/{{ $proposal->slug }}/edit/proposal" method="POST" class="dropzone"
                     id="multple-file-upload" enctype="multipart/form-data">
                     @csrf
                     <div class="fallback">
@@ -49,7 +49,7 @@
                 </form>
 
 
-                <form action="/dokumen/{{ $proposal->name }}/edit" method="post" class="needs-validation"
+                <form action="/dokumen/{{ encrypt($proposal->slug) }}/edit" method="post" class="needs-validation"
                     enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="card-body">
@@ -114,7 +114,7 @@
                             </div>
                             <div class="col-lg">
                                 <input id="picker3" class="form-control " placeholder="yyyy-mm-dd"
-                                    value="{{ old('tanggal') ?? $proposal->tanggal }}" name="tanggal" required>
+                                    value="{{ old('tanggal') ?? date_format(date_create($proposal->tanggal),"d F Y") }}" name="tanggal" required>
                                 @error('tanggal')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -184,6 +184,27 @@
 @endsection
 
 @section('page-js')
+<script>
+    
+    $(document).ready(function(){
+            $('#dropdownNotification').click(function(){
+                $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url:"{{url('/notif/update')}}", 
+                    type: "POST",
+                    success: function(){
+                       
+                    }
+                });
+            }); 
+    });
+
+</script>
 <script src="{{asset('assets/js/vendor/dropzone.min.js')}}"></script>
 
 <script src="{{asset('assets/js/dropzone.script.js')}}"></script>

@@ -27,11 +27,6 @@
     {{-- <link rel="stylesheet" href="/resources/demos/style.css"> --}}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-    </script>
     @yield('admin-css')
     
 </head>
@@ -111,7 +106,7 @@
         </div>
     </div>
 
-    @yield('page-js')
+    
 
     <script src="{{ asset('black') }}/js/core/jquery.min.js"></script>
     <script src="{{ asset('black') }}/js/core/popper.min.js"></script>
@@ -236,7 +231,9 @@
     </script>
     @stack('js')
 
+    @yield('page-js')
     @yield('bottom-js')
+
    
 </body>
 

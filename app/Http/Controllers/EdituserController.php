@@ -51,7 +51,7 @@ class EdituserController extends Controller
         $user->syncRoles("");
         // // dd('DONE');
         Alert::info('System', 'Penghapusan akun berhasil');
-        return redirect()->back();
+        return redirect()->to('user');
  
         // if(Staff::destroy($id)){
         //     flash(__('Staff has been deleted successfully'))->success();

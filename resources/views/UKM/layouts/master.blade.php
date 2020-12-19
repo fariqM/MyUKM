@@ -50,7 +50,7 @@
             <div class="main-content">
                 @yield('main-content')
             </div>
-
+            @include('UKM.layouts.footer')
 
         </div>
         <!-- ============ Body content End ============= -->
@@ -74,7 +74,7 @@
 </body>
 
 
-@include('UKM.layouts.footer')
+
 
 
 </html>

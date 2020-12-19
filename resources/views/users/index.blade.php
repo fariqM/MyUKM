@@ -89,7 +89,7 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    @for ($i = 1; $i <= 3; $i++)
+                    @for ($i = 1; $i <= $halaman; $i++)
                      
                     
                     <li class="page-item"><a class="page-link" href="user?page={{ $i }}">{{ $i }}</a></li>
