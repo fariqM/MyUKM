@@ -150,8 +150,7 @@ Route::view('others/search-result', 'others.search-result')->name('search-result
 
 
 
-
-Route::get('/MyUKM', 'App\Http\Controllers\DashboardController@layanan1');
+Route::view('/MyUKM', 'UKM.dasboardUKM')->name('MyUKM');
 
 Route::view('/MyUKM/Calendar', 'UKM.calendar')->name('Calendar');
 
@@ -168,7 +167,7 @@ Route::get('/dokumen/{Document:name}/edit', 'App\Http\Controllers\DocumentContro
 Route::post('/dokumen/{Document:id}/edit', 'App\Http\Controllers\DocumentController@update');
 Route::post('/dokumen/{Document:id}/edit/proposal', 'App\Http\Controllers\DocumentController@docUpdate');
 Route::get('/dokumen/{Document:name}/delete', 'App\Http\Controllers\DocumentController@destroy');
-Route::post('/notif/update', 'App\Http\Controllers\NotifController@update');
+
 
 
 Route::get('/loginukm', function(){
@@ -257,8 +256,6 @@ Route::middleware('auth')->group(function (){
 	Route::get('/Doc/{Document:id}', 'App\Http\Controllers\AdminTableController@show');
 	Route::get('/adminTable/Pengajuan/{Document:name}/edit', 'App\Http\Controllers\DocumentController@editAdmin')->name('editAdmin');
 	Route::post('/adminTable/Pengajuan/{Document:id}/edit', 'App\Http\Controllers\DocumentController@adminUpdate');
-	Route::post('/adminTable/Pengajuan/{Document:id}/acc', 'App\Http\Controllers\DocumentController@acc')->name('acc');
-	Route::post('/adminTable/Pengajuan/{Document:id}/tolak', 'App\Http\Controllers\DocumentController@tolak');
 	Route::get('/adminTable/Pengajuan/{Document:name}/delete', 'App\Http\Controllers\DocumentController@adminDestroy');
 	
 	

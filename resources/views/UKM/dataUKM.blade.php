@@ -39,7 +39,6 @@
                             <tr>
                                 <th>Aksi</th>
                                 <th>No</th>
-                                <th>Status</th>
                                 <th>File</th>
                                 <th>Judul</th>
                                 <th>Tanggal</th>
@@ -49,13 +48,9 @@
                                 <th>Dibuat tanggal</th>
                             </tr>
                         <tbody>
-                            {{ $nomer = 0 }}
-                            @foreach ($file as $key=> $data)
-
+                            @foreach ($file as $key=>$data)
                             <tr>
-                                <td>{{ ++$nomer }}</td>
                                 <td>
-
                                     <div class="btn-group">
                                         <button type="button" class="btn bg-white _r_btn" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
@@ -64,47 +59,41 @@
                                             <span class="_dot _inline-dot bg-warning"></span>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a type="button" class="dropdown-item btn btn-danger"
-                                                href="/dokumen/{{ $data->name }}/edit">Edit</a>
-                                            @if ($data->status == "Ditolak")
+                                            <a type="button" class="dropdown-item btn btn-danger" href="/dokumen/{{ $data->name }}/edit">Edit</a>
                                             <a type="button" class=" dropdown-item btn btn-danger btn-block mb-3"
                                                 id="alert-confirm" href="/dokumen/{{ $data->name }}/delete">Hapus</a>
-                                            @else
-                                            @if ($data->status === null)
-                                            <a type="button" class=" dropdown-item btn btn-danger btn-block mb-3"
-                                                id="alert-confirm" href="/dokumen/{{ $data->name }}/delete">Hapus</a>
-                                            @endif
-                                            @endif
-
-
                                         </div>
                                     </div>
                                 </td>
-                                @if ($data->status === null)
-                                <td><a href="#" style="font-size: 15px" class="badge badge-light m-2">Pending</a></td>
-                                @else
-                                @if ($data->status == "ACC" )
-
-                                <td><a href="#" style="font-size: 15px"
-                                        class="badge badge-success m-2">{{ $data->status }}</a></td>
-                                @else
-                                <td><a href="#" style="font-size: 15px"
-                                        class="badge badge-danger m-2">{{ $data->status }}</a></td>
-                                @endif
-
-                                @endif
-
+                                <td>{{ ++$key }}</td>
                                 <td><a href="/dokumen/{{ $data->id }}">{{ $data->name }}</a></td>
                                 <td>{{ $data->judul }}</td>
                                 <td>{{ $data->tanggal }}</td>
                                 <td>{{ str_replace(":00","",$data->mulai). " - " .str_replace(":00","",$data->selesai) }}
                                 </td>
                                 <td>{{ $data->tempat }}</td>
-                                <td>{{ $data->PenanggungJawab }}</td>
+                                <td>{{ $data->pj }}</td>
                                 <td>{{ $data->updated_at->format("d F Y") }}</td>
                             </tr>
                             @endforeach
+
+
+                            {{-- <div class="card-title">Alert Action</div> --}}
+
+
+
+
                         </tbody>
+                        {{-- <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Tipe</th>
+                                <th>Dibuat tanggal</th>
+                                <th>Diubah tanggal</th>
+                            </tr>
+                        </tfoot> --}}
                         </thead>
                     </table>
                 </div>

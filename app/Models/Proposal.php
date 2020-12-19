@@ -9,7 +9,7 @@ class Proposal extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status','judul', 'mulai', 'selesai', 'tanggal', 'tempat', 'PenanggungJawab', 'name', 'type'];
+    protected $fillable = ['judul', 'mulai', 'selesai', 'tanggal', 'tempat', 'PenanggungJawab', 'name', 'type'];
 
     public function user(){
         return $this->belongsTo(User::class);
