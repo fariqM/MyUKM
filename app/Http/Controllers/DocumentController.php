@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notif;
 use App\Models\Proposal;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,16 +23,9 @@ class DocumentController extends Controller
     public function index()
     {
         $id = auth()->user()->id;
-        $allNotif = Notif::get()->where('user_id', '==', $id);
-
-        $file = Proposal::get()->where('user_id', '==', $id);
-        return view('UKM.dataUKM', [
-            'file' => $file,
-            'notifSuccess' => $allNotif->where('info', '==', 0)->where('tipe', '==', 1),
-            'notifFail' => $allNotif->where('info', '==', 0)->where('tipe', '==', 0),
-            'notifBaru' => count($allNotif->where('info', '==', 0)),
-            'allNotif' => $allNotif
-        ]);
+        $user = User::find($id);
+        $file = Proposal::all();
+        return view('UKM.dataUKM', compact('file'));
     }
 
     public function docUpdate($name, Request $request)
@@ -50,7 +42,7 @@ class DocumentController extends Controller
             if ($request->file('file')) {
                 $file = $request->file('file');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                Storage::disk('public')->delete('docs/proposal/' . $data->name);
+                Storage::disk('public')->delete('docs/proposal/'.$data->name);
                 $request = $file->storeAs("docs/proposal", $filename);
                 $docs = [
                     'name' => $filename,
@@ -80,10 +72,11 @@ class DocumentController extends Controller
         $request = $file->storeAs("docs/proposal", $filename);
         $attr['name'] = $filename;
         $attr['type'] = $file->getClientOriginalExtension();
-
+    
         $data = auth()->user()->proposals()->create($attr);
-        Alert::success('Berhasil!!', 'Proposal berhasil terkirim');
-        return redirect()->back();
+        Alert::success('Success!!', 'Proposal berhasil terkirim');
+        return redirect()->back();   
+
     }
 
     public function update($name)
@@ -101,12 +94,11 @@ class DocumentController extends Controller
 
 
         $data->update($attr);
-        Alert::success('Berhasil!!', 'Proposal berhasil diedit');
+        Alert::success('Success!!', 'Proposal berhasil diedit');
         return redirect()->to('profileUKM/data');
     }
 
-    public function adminUpdate($name)
-    {
+    public function adminUpdate($name){
         $data = Proposal::where('name', $name)->firstOrFail();
         $attr = request()->validate([
             'judul' => 'required|min:4',
@@ -119,42 +111,7 @@ class DocumentController extends Controller
 
 
         $data->update($attr);
-        Alert::success('System!!', 'Proposal berhasil diedit');
-        return redirect()->to('/adminTable/Pengajuan');
-    }
-
-    public function acc($id)
-    {
-        $notif = new Notif();
-        $proposal = Proposal::where('id', $id)->firstOrFail();
-        $attr['status'] = "ACC";
-        $proposal->update($attr);
-
-        $dist['user_id'] = $proposal->user_id;
-        $dist['judul'] = 'Proposal telah diterima dan ter-acc';
-        $dist['info'] = '0';
-        $dist['tipe'] = '1';
-        $dist['deskripsi'] = 'Proposal ' . $proposal->judul . ' telah di-acc, silahkan melaksanakan kegiatan.
-         Tetap laksanakan PROTOKOL KESEHATAN!, dan jangan lupa lampirkan laporan SPJ setelah kegiatan. Terima Kasih.';
-        $notif = Notif::create($dist);
-
-        Alert::success('System!!', 'Proposal ter-acc');
-        return redirect()->to('/adminTable/Pengajuan');
-    }
-    public function tolak($id)
-    {
-        $proposal = Proposal::where('id', $id)->firstOrFail();
-        $attr['status'] = "Ditolak";
-        $proposal->update($attr);
-
-        $dist['user_id'] = $proposal->user_id;
-        $dist['judul'] = 'Proposal ditolak';
-        $dist['info'] = '0';
-        $dist['tipe'] = '0';
-        $dist['deskripsi'] = 'Proposal ' . $proposal->judul . ' dibatalkan.
-         silahkan periksa kembali proposal yang dikirim atau hubungi yang berwenang';
-        $notif = Notif::create($dist);
-        Alert::warning('System!!', 'Proposal ditolak');
+        Alert::success('Success!!', 'Proposal berhasil diedit');
         return redirect()->to('/adminTable/Pengajuan');
     }
 
@@ -165,10 +122,9 @@ class DocumentController extends Controller
         return view('UKM.editProposal', compact('proposal'));
     }
 
-    public function editAdmin($name)
-    {
+    public function editAdmin($name){
         $proposal = Proposal::where('name', $name)->firstOrFail();
-
+       
         return view('users.adminEditProposal', compact('proposal'));
     }
 
@@ -177,17 +133,16 @@ class DocumentController extends Controller
     {
 
         $proposal = Proposal::where('name', $name)->firstOrFail();
-        Storage::disk('public')->delete('docs/proposal/' . $proposal->name);
+        Storage::disk('public')->delete('docs/proposal/'.$proposal->name);
         $proposal->delete();
         // Proposal::destroy($proposal->name);
         Alert::success('System!', 'Penghapusan permohonan berhasil');
         return redirect()->back();
     }
 
-    public function adminDestroy($name)
-    {
+    public function adminDestroy($name){
         $proposal = Proposal::where('name', $name)->firstOrFail();
-        Storage::disk('public')->delete('docs/proposal/' . $proposal->name);
+        Storage::disk('public')->delete('docs/proposal/'.$proposal->name);
         $proposal->delete();
         // Proposal::destroy($proposal->name);
         Alert::success('System!', 'Penghapusan permohonan berhasil');

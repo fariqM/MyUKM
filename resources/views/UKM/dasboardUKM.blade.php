@@ -4,10 +4,8 @@
 @section('before-css')
 <link rel="stylesheet" href="{{asset('assets/styles/vendor/pickadate/classic.css')}}">
 <link rel="stylesheet" href="{{asset('assets/styles/vendor/pickadate/classic.date.css')}}">
-@endsection
 
-@section('page-css')
-<link rel="stylesheet" href="{{asset('assets/styles/vendor/toastr.css')}}">
+
 @endsection
 
 @section('main-content')
@@ -179,98 +177,13 @@
 @endsection
 
 @section('page-js')
-<script src="{{asset('assets/js/vendor/toastr.min.js')}}"></script>
-<script src="{{asset('assets/js/toastr.script.js')}}"></script>
-
-<script>
-    $(document).ready(function(){
-            $('#dropdownNotification').click(function(){
-                $.ajaxSetup({
-                    headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    url:"{{url('/notif/update')}}", 
-                    type: "POST",
-                    success: function(){
-                       
-                    }
-                });
-            }); 
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
-        var users = @json($notifSuccess);
-        console.log(users);
-        var title = [];
-        var description = [];
-        var i = 0;
-        var x = 0;
-        
-        for (var key in users) {
-        if (!users.hasOwnProperty(key)) continue;
-            var obj = users[key];
-            for (var atribut in obj){
-                if (!obj.hasOwnProperty(atribut)) continue;
-                    if (atribut == "judul"){
-                        title[i]=obj.judul;  
-                        i++;
-                    }
-                    if (atribut == "deskripsi"){
-                        description[x]=obj.deskripsi;
-                        x++;
-                    }
-            }
-    }  
-        for(y = 0 ; y<title.length ; y++  ){
-            toastr.success(description[y], title[y], {
-                timeOut: 50000,
-                closeButton: !0})
-        }    
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
-        var users = @json($notifFail);
-        console.log(users);
-        var title = [];
-        var description = [];
-        var i = 0;
-        var x = 0;
-        
-        for (var key in users) {
-        if (!users.hasOwnProperty(key)) continue;
-            var obj = users[key];
-            for (var atribut in obj){
-                if (!obj.hasOwnProperty(atribut)) continue;
-                    if (atribut == "judul"){
-                        title[i]=obj.judul;  
-                        i++;
-                    }
-                    if (atribut == "deskripsi"){
-                        description[x]=obj.deskripsi;
-                        x++;
-                    }
-            }
-    }  
-        for(y = 0 ; y<title.length ; y++  ){
-            toastr.error(description[y], title[y], {
-                timeOut: 50000,
-                closeButton: !0})
-        }    
-    });
-</script>
-
 <script>
     document.getElementById('inputGroupFile01').onchange = function () {
        
         var text = this.value;
         document.getElementById("p1").innerHTML = text;
+        
+
 };
 </script>
 {{-- <script src="{{asset('assets/js/vendor/pickadate/picker.js')}}"></script>

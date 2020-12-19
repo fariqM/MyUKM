@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>MyUKM</title>
+  <title>Coming Soon - Start Bootstrap Theme</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{{ asset('landAttr/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
