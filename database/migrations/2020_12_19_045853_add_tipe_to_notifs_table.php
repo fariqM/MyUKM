@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusToProposalsTable extends Migration
+class AddTipeToNotifsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddStatusToProposalsTable extends Migration
      */
     public function up()
     {
-        Schema::table('proposals', function (Blueprint $table) {
-            $table->string('status')->nullable()->after('id');
+        Schema::table('notifs', function (Blueprint $table) {
+            $table->string('tipe', 64)->after('info');
         });
     }
 
@@ -25,8 +25,8 @@ class AddStatusToProposalsTable extends Migration
      */
     public function down()
     {
-        Schema::table('proposals', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('notifs', function (Blueprint $table) {
+            $table->dropColumn('tipe');
         });
     }
 }

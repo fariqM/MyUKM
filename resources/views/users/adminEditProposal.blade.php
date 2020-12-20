@@ -18,25 +18,25 @@
 
 <div class="row">
     <div class="col-lg-10">
-        <div class="card">
+        <div class="card ">
             <div class="card-header">
                 <h4 class="card-title">Edit Proposal</h4>
                 <div class="card-body">
 
 
                     {{-- <button id="button-select" class="btn btn-primary mb-1">select files</button>
-                    <form action="#" method="POST" class="dropzone dropzone-area" enctype="multipart/form-data" id="button-select-upload">
-                        @csrf
-
-                        <div class="fallback">
-                            <input type="file" name="file" />
-                        </div>
-                        <div class="dz-message">Drop Files Here To Upload</div>
-                    </form> --}}
+                        <form action="#" method="POST" class="dropzone dropzone-area" enctype="multipart/form-data" id="button-select-upload">
+                            @csrf
+    
+                            <div class="fallback">
+                                <input type="file" name="file" />
+                            </div>
+                            <div class="dz-message">Drop Files Here To Upload</div>
+                        </form> --}}
 
                     {{-- <form action="/file-upload" class="dropzone" id="my-awesome-dropzone"><input type="file"
-                        name="file" />
-                    </form> --}}
+                            name="file" />
+                        </form> --}}
 
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
@@ -118,7 +118,8 @@
                     <div class="form-group">
                         <label for="PenanggungJawab">Penanggung Jawab</label>
                         <input type="text" name="PenanggungJawab"
-                            class="form-control @error('PenanggungJawab') is-invalid @enderror" placeholder="Judul Proposal"
+                            class="form-control @error('PenanggungJawab') is-invalid @enderror"
+                            placeholder="Judul Proposal"
                             value="{{ old('PenanggungJawab') ?? $proposal->PenanggungJawab }}" required>
                         @error('PenanggungJawab')
                         <div class="invalid-feedback">
@@ -128,9 +129,8 @@
                     </div>
 
                     <div class="form-group">
-
-                        <button class="btn btn-success animation-on-hover" type="submit">Simpan</button>
-
+                        <button class="btn btn-success animation-on-hover d-flex justify-content-between"
+                            type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -144,6 +144,7 @@
 @section('page-js')
 <script src="{{asset('assets/js/vendor/dropzone.min.js')}}"></script>
 <script src="{{asset('assets/js/dropzone.script.js')}}"></script>
+@include('sweetalert::alert')
 @endsection
 
 @section('bottom-js')
@@ -151,5 +152,5 @@
 <script src="{{asset('assets/js/vendor/pickadate/picker.time.js')}}"></script>
 <script src="{{asset('assets/js/vendor/pickadate/picker.date.js')}}"></script>
 <script src="{{asset('assets/js/form.basic.script.js')}}"></script>
-@include('sweetalert::alert')
+
 @endsection
