@@ -12,13 +12,16 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
-
-    // public function documents(){
-    //     return $this->hasMany(Document::class);
-    // }
-
     public function proposals(){
         return $this->hasMany(Proposal::class);
+    }
+
+    public function notifs(){
+        return $this->hasMany(Notif::class);
+    }
+
+    public function reports(){
+        return $this->hasMany(Report::class);
     }
     /**
      * The attributes that are mass assignable.

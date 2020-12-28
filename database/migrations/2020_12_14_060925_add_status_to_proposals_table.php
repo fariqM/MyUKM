@@ -14,7 +14,7 @@ class AddStatusToProposalsTable extends Migration
     public function up()
     {
         Schema::table('proposals', function (Blueprint $table) {
-            //
+            $table->string('status')->nullable()->after('id');
         });
     }
 
@@ -26,7 +26,7 @@ class AddStatusToProposalsTable extends Migration
     public function down()
     {
         Schema::table('proposals', function (Blueprint $table) {
-            //
+            $table->dropColumn('status');
         });
     }
 }

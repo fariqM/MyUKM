@@ -20,7 +20,7 @@ class UserController extends Controller
         $pembagian = ceil($total / 3);
         return view('users.index', [
             'data' => $user,
-            'halaman' => $page,
+            'halaman' => $pembagian,
             'role' => Role::get(),
         ]);
         // dd($pembagian);

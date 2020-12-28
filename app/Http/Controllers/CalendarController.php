@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Event;
+use App\Models\Notif;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Response;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CalendarController extends Controller
 {
+    public function show(){
+        return view('UKM.calendar',  notif());
+        
+    }
+
     public function store(Request $request)
     {
 

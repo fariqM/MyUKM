@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Coming Soon - Start Bootstrap Theme</title>
+  <title>MyUKM</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{{ asset('landAttr/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -39,7 +39,7 @@
             <h1 class="mb-3">©DreamyWaze</h1>
             <p class="mb-5">group kecil kami mempersembahkan
               <strong>MyUKM</strong> aplikasi integrasi perizinan aktifitas UKM</p>
-              <a href="/loginukm" class="btn btn-success btn-lg btn-block" type="button">Masuk </a>
+              <a href="{{ route('login') }}" class="btn btn-success btn-lg btn-block" type="button">Masuk </a>
           </div>
         </div>
       </div>

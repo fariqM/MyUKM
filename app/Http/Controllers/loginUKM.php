@@ -8,22 +8,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+
 class loginUKM extends Controller
 {
     use AuthenticatesUsers;
 
-    public function go(){
-        
+    public function go()
+    {
     }
 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
 
-    public function check2(Request $request){
+        $request->session()->regenerateToken();
+        return redirect('/loginukm');
+    }
+
+    public function check2(Request $request)
+    {
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:3'
         ]);
-        
+
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required|min:3'
@@ -34,10 +44,11 @@ class loginUKM extends Controller
             'password' => $request->get('password'),
         );
 
-        if(Auth::attempt($userdata)){
+        if (Auth::attempt($userdata)) {
             return redirect()->to('MyUKM');
+            // dd(auth()->user()->id);
         } else {
-           return back()->with('errors', $validator->messages()->all()[0])->withInput();
+            return back()->with('errors', 'Periksa email dan password anda');
         }
     }
 

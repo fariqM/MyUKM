@@ -90,7 +90,27 @@
 
 
 @section('page-js')
+<script>
+    
+    $(document).ready(function(){
+            $('#dropdownNotification').click(function(){
+                $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
 
+                $.ajax({
+                    url:"{{url('/notif/update')}}", 
+                    type: "POST",
+                    success: function(){
+                       
+                    }
+                });
+            }); 
+    });
+
+</script>
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -155,10 +175,7 @@
               height:600,
             })
           },
-  
-            eventDrop: function (event, delta) {
-                
-            
+            eventDrop: function (event, delta) {    
             var start = $.fullCalendar.formatDate(event.start, "YYYY-MM-DD HH:mm:ss");
             var end = $.fullCalendar.formatDate(event.end, "YYYY-MM-DD HH:mm:ss");
             $.ajax({
@@ -166,18 +183,13 @@
             data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
             type: "POST",
             success: function (response) {
-                // toast('Your Post as been submited!','success');
-                // alert("Hello! I am an alert box!!");
                 $( "#UpdateDialog" ).dialog({
                      width:600,
                      height:200,
-                });
-                
+                });   
             }
             });
-            
             },
-
             eventClick: function (event) {
             var deleteMsg = confirm("Do you really want to delete?");
             if (deleteMsg) {

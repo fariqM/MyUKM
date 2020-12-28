@@ -48,15 +48,15 @@
                 
                 
                 <li @if ($pageSlug=='Jadwal' ) class="active " @endif>
-                    <a href="#">
-                        <i class="tim-icons icon-pin"></i>
+                    <a href="{{ route('CalendarAdmin') }}">
+                        <i class="tim-icons icon-calendar-60"></i>
                         <p>{{ __('Jadwal') }}</p>
                     </a>
                 </li>
-                <li @if ($pageSlug=='notifications' ) class="active " @endif>
-                    <a href="#">
+                <li @if ($pageSlug=='Catatan' ) class="active " @endif>
+                    <a href="{{ route('catatan') }}">
                         <i class="tim-icons icon-bell-55"></i>
-                        <p>{{ __('Pengingat') }}</p>
+                        <p>{{ __('Catatan') }}</p>
                     </a>
                 </li>
                 

@@ -150,40 +150,18 @@ Route::view('others/search-result', 'others.search-result')->name('search-result
 
 
 
-Route::view('/MyUKM', 'UKM.dasboardUKM')->name('MyUKM');
-
-Route::view('/MyUKM/Calendar', 'UKM.calendar')->name('Calendar');
-
-Route::get('eventController', 'App\Http\Controllers\CalendarController@index')->name('allEvent');
-
-Route::post('store', 'App\Http\Controllers\CalendarController@store')->name('eventStore');
-
-Route::post('/MyUKM/store', 'App\Http\Controllers\DocumentController@store')->name('docsStore');
-
-Route::get('profileUKM/data', 'App\Http\Controllers\DocumentController@index');
-
-Route::get('/dokumen/{Document:id}', 'App\Http\Controllers\DocumentController@show');
-Route::get('/dokumen/{Document:name}/edit', 'App\Http\Controllers\DocumentController@edit');
-Route::post('/dokumen/{Document:id}/edit', 'App\Http\Controllers\DocumentController@update');
-Route::post('/dokumen/{Document:id}/edit/proposal', 'App\Http\Controllers\DocumentController@docUpdate');
-Route::get('/dokumen/{Document:name}/delete', 'App\Http\Controllers\DocumentController@destroy');
 
 
-
-Route::get('/loginukm', function(){
-	return view('login');
-});
-Route::post('/loginukm/go', 'App\Http\Controllers\loginUKM@check2')->name('loginUKM');
 
 
 Route::get('/', function () {
-    return view('landing');
+	return view('landing');
 });
 
 
 
 Route::get('/admin', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 // Route::resource('profileUKM/data', 'App\Http\Controllers\DocumentController');
@@ -192,28 +170,28 @@ Route::get('/admin', function () {
 // Route::get('fullcalendar','App\Http\Controllers\CalendarController@index');
 // Route::get('fullcalendar/create','App\Http\Controllers\CalendarController@create');
 
-Route::post('fullcalendar/update','App\Http\Controllers\CalendarController@update')->name('updateEvent');
+Route::post('fullcalendar/update', 'App\Http\Controllers\CalendarController@update')->name('updateEvent');
 
 
-Route::post('fullcalendar/delete','App\Http\Controllers\CalendarController@destroy')->name('deleteEvent');
+Route::post('fullcalendar/delete', 'App\Http\Controllers\CalendarController@destroy')->name('deleteEvent');
 
 // Route::view('/', 'starter')->name('starter');
 Route::get('large-compact-sidebar/dashboard/dashboard1', function () {
-    // set layout sesion(key)
-    session(['layout' => 'compact']);
-    return view('dashboard.dashboardv1');
+	// set layout sesion(key)
+	session(['layout' => 'compact']);
+	return view('dashboard.dashboardv1');
 })->name('compact');
 
 Route::get('large-sidebar/dashboard/dashboard1', function () {
-    // set layout sesion(key)
-    session(['layout' => 'normal']);
-    return view('dashboard.dashboardv1');
+	// set layout sesion(key)
+	session(['layout' => 'normal']);
+	return view('dashboard.dashboardv1');
 })->name('normal');
 
 Route::get('horizontal-bar/dashboard/dashboard1', function () {
-    // set layout sesion(key)
-    session(['layout' => 'horizontal']);
-    return view('dashboard.dashboardv1');
+	// set layout sesion(key)
+	session(['layout' => 'horizontal']);
+	return view('dashboard.dashboardv1');
 })->name('horizontal');
 
 
@@ -226,24 +204,31 @@ Auth::routes();
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
-		Route::get('icons', ['as' => 'pages.icons', 'uses' => 'App\Http\Controllers\PageController@icons']);
-		Route::get('maps', ['as' => 'pages.maps', 'uses' => 'App\Http\Controllers\PageController@maps']);
-		Route::get('notifications', ['as' => 'pages.notifications', 'uses' => 'App\Http\Controllers\PageController@notifications']);
-		Route::get('rtl', ['as' => 'pages.rtl', 'uses' => 'App\Http\Controllers\PageController@rtl']);
-		Route::get('tables', ['as' => 'pages.tables', 'uses' => 'App\Http\Controllers\PageController@tables']);
-		Route::get('typography', ['as' => 'pages.typography', 'uses' => 'App\Http\Controllers\PageController@typography']);
-		Route::get('upgrade', ['as' => 'pages.upgrade', 'uses' => 'App\Http\Controllers\PageController@upgrade']);
+	Route::get('icons', ['as' => 'pages.icons', 'uses' => 'App\Http\Controllers\PageController@icons']);
+	Route::get('maps', ['as' => 'pages.maps', 'uses' => 'App\Http\Controllers\PageController@maps']);
+	Route::get('notifications', ['as' => 'pages.notifications', 'uses' => 'App\Http\Controllers\PageController@notifications']);
+	Route::get('rtl', ['as' => 'pages.rtl', 'uses' => 'App\Http\Controllers\PageController@rtl']);
+	Route::get('tables', ['as' => 'pages.tables', 'uses' => 'App\Http\Controllers\PageController@tables']);
+	Route::get('typography', ['as' => 'pages.typography', 'uses' => 'App\Http\Controllers\PageController@typography']);
+	Route::get('upgrade', ['as' => 'pages.upgrade', 'uses' => 'App\Http\Controllers\PageController@upgrade']);
 });
 
 Route::group(['middleware' => 'auth'], function () {
-	
+
 	// Route::resource('user', ['as' => 'user', 'uses' => 'App\Http\Controllers\UserController@index']);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 });
 
-Route::middleware('auth')->group(function (){
+Route::middleware('auth')->group(function () {
+	Route::get('admin/catatan', 'App\Http\Controllers\CatatanController@show')->name('catatan');
+
+	Route::get('/admin/Calendar', 'App\Http\Controllers\CalendarAdminController@show')->name('CalendarAdmin');
+	Route::get('admin/eventController', 'App\Http\Controllers\CalendarAdminController@index')->name('allEventAdmin');
+	Route::post('admin/fullcalendar/update', 'App\Http\Controllers\CalendarAdminController@update')->name('updateEventAdmin');
+	Route::post('admin/fullcalendar/delete', 'App\Http\Controllers\CalendarAdminController@destroy')->name('deleteEventAdmin');
+
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('user/adduser', 'App\Http\Controllers\Auth\RegisterController@form')->name('AddUserForm');
 	Route::post('user/adduser', 'App\Http\Controllers\Auth\RegisterController@adduser')->name('AddUser');
@@ -256,8 +241,44 @@ Route::middleware('auth')->group(function (){
 	Route::get('/Doc/{Document:id}', 'App\Http\Controllers\AdminTableController@show');
 	Route::get('/adminTable/Pengajuan/{Document:name}/edit', 'App\Http\Controllers\DocumentController@editAdmin')->name('editAdmin');
 	Route::post('/adminTable/Pengajuan/{Document:id}/edit', 'App\Http\Controllers\DocumentController@adminUpdate');
+	Route::post('/adminTable/Pengajuan/{Document:id}/acc', 'App\Http\Controllers\DocumentController@acc')->name('acc');
+	Route::post('/adminTable/Pengajuan/{Document:id}/tolak', 'App\Http\Controllers\DocumentController@tolak');
 	Route::get('/adminTable/Pengajuan/{Document:name}/delete', 'App\Http\Controllers\DocumentController@adminDestroy');
-	
-	
 });
 
+Route::middleware('auth')->group(function () {
+	Route::get('/Beranda', 'App\Http\Controllers\DashboardController@beranda');
+	Route::get('/MyUKM', 'App\Http\Controllers\DashboardController@layanan1');
+
+	Route::get('/SPJ', 'App\Http\Controllers\ReportController@report');
+	Route::get('/SPJ/test', 'App\Http\Controllers\ReportController@test');
+	Route::post('/SPJ/sesat', function () {
+		return view('UKM.layouts.404');
+	});
+	Route::get('/SPJ/{Report:slug}', 'App\Http\Controllers\ReportController@show_spj');
+	Route::post('/SPJ/{Proposal:id}/store', 'App\Http\Controllers\ReportController@store');
+
+	Route::get('/MyUKM/Calendar', 'App\Http\Controllers\CalendarController@show')->name('Calendar');
+
+	Route::get('eventController', 'App\Http\Controllers\CalendarController@index')->name('allEvent');
+
+	Route::post('store', 'App\Http\Controllers\CalendarController@store')->name('eventStore');
+
+	Route::post('/MyUKM/store', 'App\Http\Controllers\DocumentController@store')->name('docsStore');
+
+	Route::get('profileUKM/data', 'App\Http\Controllers\DocumentController@index');
+
+	Route::get('/dokumen/{Proposal:slug}', 'App\Http\Controllers\DocumentController@show');
+	Route::get('/dokumen/{Proposal:slug}/edit', 'App\Http\Controllers\DocumentController@edit');
+	Route::post('/dokumen/{Proposal:slug}/edit', 'App\Http\Controllers\DocumentController@update');
+	Route::post('/dokumen/{Proposal:slug}/edit/proposal', 'App\Http\Controllers\DocumentController@docUpdate');
+	Route::get('/dokumen/{Proposal:slug}/delete', 'App\Http\Controllers\DocumentController@destroy');
+	Route::post('/notif/update', 'App\Http\Controllers\NotifController@update');
+});
+Route::get('/loginukm', function () {
+	return view('login');
+});
+Route::post('/loginukm/go', 'App\Http\Controllers\loginUKM@check2')->name('loginUKM');
+Route::get('/logoutUKM', '\App\Http\Controllers\LoginUKM@logout');
+
+Route::view('/h06218016', 'auth.login');
